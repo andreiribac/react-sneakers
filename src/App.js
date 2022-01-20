@@ -1,17 +1,21 @@
 import React from 'react';
-import { Card, Header, MainGrid } from './components';
+import { Button, Card, Header, MainGrid, Drawer } from './components';
+import { IconSvgSelector } from './assets/icons/IconsSvgSelector';
 
 
 function App() {
   return (
-    <div className="wrapper">
-      <Header />
-      <main>
-        <MainGrid title="все кросовки">
-          <Card img={''} title={'Мужские Кроссовки Nike Blazer Mid Suede'} price={'12 999'} />
-        </MainGrid>
-      </main>
-    </div>
+    <>
+      <Drawer />
+      <div className="wrapper">
+        <Header />
+        <main>
+          <MainGrid title="все кросовки" search>
+            <Card img={''} title={'Мужские Кроссовки Nike Blazer Mid Suede'} price={'12 999'} />
+          </MainGrid>
+        </main>
+      </div>
+    </>
   );
 }
 

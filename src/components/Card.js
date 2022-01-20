@@ -4,11 +4,11 @@ import classNames from 'classnames';
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ img, title, price, horizontal, ...props}) {
+function Card({ img, title, price, horizontal, cart, ...props }) {
 	return (
-		<div className={classNames("card",  {"card--horizontal" : horizontal})}>
+		<div className={classNames("card", { "card--horizontal": horizontal })}>
 			<div className="card__btn card__btn--favorite">
-				<IconSvgSelector id='heart' />
+				<IconSvgSelector id='unliked' />
 			</div>
 			<img src={img} alt="" className="card__img" />
 			<div className="card__info">
@@ -19,7 +19,11 @@ function Card({ img, title, price, horizontal, ...props}) {
 						<div className="card__price-value">{price} руб.</div>
 					</div>
 					<div className="card__btn card__btn--action">
-						<IconSvgSelector id='plus' />
+						{cart
+							? <IconSvgSelector id='btn-remove' />
+							: <IconSvgSelector id='btn-plus' />
+						}
+
 					</div>
 				</div>
 			</div>
