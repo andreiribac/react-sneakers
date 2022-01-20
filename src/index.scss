@@ -101,7 +101,7 @@ h4,
 	z-index: 9;
 	opacity: 0;
 	pointer-events: none;
-  transition: opacity 0.2s ease-in-out;
+	transition: opacity 0.2s ease-in-out;
 	&.active {
 		opacity: 1;
 		pointer-events: all;
@@ -130,9 +130,9 @@ h4,
 		transition: transform 0.2s ease-in-out;
 	}
 	&__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		margin-bottom: 30px;
 	}
 	&__card-container {
@@ -258,6 +258,14 @@ h4,
 	&__header {
 		display: flex;
 		align-items: center;
+		margin-bottom: 30px;
+    h2, .h2 {
+      display: inline-block;
+      text-transform: lowercase;
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
 	}
 	&__grid {
 		display: grid;
