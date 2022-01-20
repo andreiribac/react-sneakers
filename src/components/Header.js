@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
+import Logo from '../assets/img/logo.png';
+
+
 function Header() {
 	return (
 		<header className='header'>
 			<div className="header__row">
 				<div className="logo">
-					<img src="" alt="logo" className="logo__img" />
+					<img src={Logo} alt="logo" className="logo__img" />
 					<div className="logo__info-box">
 						<div className="h3">REACT SNEAKERS</div>
 						<span className='color-gray'>Магазин лучших кроссовок</span>
@@ -15,20 +19,20 @@ function Header() {
 					<ul className="actions__list">
 						<li className="actions__item">
 							<div className="actions__btn">
-								<div className="actions__icon"></div>
-								<div className="actions__info">1205 руб.</div>
+								<IconSvgSelector id='cart' className="actions__icon" />
+								<span className="actions__info">1205 руб.</span>
 							</div>
 						</li>
 						<li className="actions__item">
 							<div className="actions__btn">
-								<div className="actions__icon"></div>
-								<div className="actions__info"></div>
+								<IconSvgSelector id='heart' className="actions__icon" />
+								<span className="actions__info"></span>
 							</div>
 						</li>
 						<li className="actions__item">
 							<div className="actions__btn">
-								<div className="actions__icon"></div>
-								<div className="actions__info"></div>
+								<IconSvgSelector id='user' className="actions__icon" />
+								<span className="actions__info"></span>
 							</div>
 						</li>
 					</ul>
