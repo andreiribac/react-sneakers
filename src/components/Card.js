@@ -4,7 +4,8 @@ import classNames from 'classnames';
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ img, title, price, horizontal, cart, ...props }) {
+function Card({ img, name, price, horizontal, cart, onClick, ...props }) {
+
 	return (
 		<div className={classNames("card", { "card--horizontal": horizontal })}>
 			<div className="card__btn card__btn--favorite">
@@ -12,13 +13,16 @@ function Card({ img, title, price, horizontal, cart, ...props }) {
 			</div>
 			<img src={img} alt="" className="card__img" />
 			<div className="card__info">
-				<div className="card__title">{title}</div>
+				<div className="card__title">{name}</div>
 				<div className="card__footer">
 					<div className="card__price-box">
 						<span className="card__price-title">Цена:</span>
 						<div className="card__price-value">{price} руб.</div>
 					</div>
-					<div className="card__btn card__btn--action">
+					<div
+						className="card__btn card__btn--action"
+						onClick={onClick}
+					>
 						{cart
 							? <IconSvgSelector id='btn-remove' />
 							: <IconSvgSelector id='btn-plus' />

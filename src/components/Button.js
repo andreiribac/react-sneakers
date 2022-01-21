@@ -1,12 +1,12 @@
 import React from 'react';
-import Classnames from 'classnames';
+import classNames from 'classnames';
 
 
 function Button({ children, large, ...props }) {
 	return (
 		<button
 			{...props}
-			className={Classnames("btn", { "btn--large": large })}
+			className={classNames("btn", { "btn--large": large })}
 		>
 			{children}
 		</button>

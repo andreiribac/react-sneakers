@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
 function MainGrid({ title, children, back, search, ...props }) {
