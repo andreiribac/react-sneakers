@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
 
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ img, name, price, horizontal, cart, onClick, ...props }) {
+function Card({ img, name, price, horizontal, cart, onClickAdd, onClickFavorite, ...props }) {
+
+	const [isAdded, setIsAdded] = useState(false);
+
+	const onClickPlus = () => {
+		setIsAdded(!isAdded);
+	}
 
 	return (
 		<div className={classNames("card", { "card--horizontal": horizontal })}>
-			<div className="card__btn card__btn--favorite">
+			<div
+				className="card__btn card__btn--favorite"
+				onClick={onClickFavorite}
+			>
 				<IconSvgSelector id='unliked' />
 			</div>
 			<img src={img} alt="" className="card__img" />
@@ -20,12 +29,12 @@ function Card({ img, name, price, horizontal, cart, onClick, ...props }) {
 						<div className="card__price-value">{price} руб.</div>
 					</div>
 					<div
-						className="card__btn card__btn--action"
-						onClick={onClick}
+						className={classNames("card__btn card__btn--action", { 'active': isAdded })}
+						onClick={onClickPlus}
 					>
 						{cart
 							? <IconSvgSelector id='btn-remove' />
-							: <IconSvgSelector id='btn-plus' />
+							: isAdded ? <IconSvgSelector id='btn-checked' /> : <IconSvgSelector id='btn-plus' />
 						}
 
 					</div>

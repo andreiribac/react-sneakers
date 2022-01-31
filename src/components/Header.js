@@ -4,7 +4,7 @@ import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 import Logo from '../assets/img/logo.png';
 
 
-function Header() {
+function Header({openDrawer, ...props}) {
 	return (
 		<header className='header'>
 			<div className="header__row">
@@ -18,7 +18,7 @@ function Header() {
 				<nav className="header__actions actions">
 					<ul className="actions__list">
 						<li className="actions__item">
-							<div className="actions__btn">
+							<div className="actions__btn" onClick={openDrawer}>
 								<IconSvgSelector id='cart' className="actions__icon" />
 								<span className="actions__info">1205 руб.</span>
 							</div>
