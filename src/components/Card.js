@@ -4,12 +4,13 @@ import classNames from 'classnames';
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ img, name, price, horizontal, cart, onClickAdd, onClickFavorite, ...props }) {
+function Card({ img, name, price, horizontal, cart, onClickFunction, onClickFavorite, ...props }) {
 
 	const [isAdded, setIsAdded] = useState(false);
 
 	const onClickPlus = () => {
 		setIsAdded(!isAdded);
+		onClickFunction({name, img, price});
 	}
 
 	return (
