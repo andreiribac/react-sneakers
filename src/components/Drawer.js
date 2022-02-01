@@ -10,7 +10,6 @@ import emptyCart from '../assets/img/empty-cart.jpg';
 
 
 function Drawer({ active, closeDrawer, onRemove, items = [], ...props }) {
-	console.log('items: ', items);
 	return (
 		<div className={classNames("drawer", { 'active': active })}>
 			<div className="overlay"></div>
@@ -56,7 +55,7 @@ function Drawer({ active, closeDrawer, onRemove, items = [], ...props }) {
 						<img className='drawer__info-img' src={emptyCart} alt="" />
 						<div className="h3">Корзина пустая</div>
 						<p className='drawer__info'>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-						<Button large>
+						<Button large onClick={closeDrawer}>
 							Вернуться назад
 						</Button>
 					</div>

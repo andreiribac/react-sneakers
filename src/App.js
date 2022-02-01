@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { Card, Header, MainGrid, Drawer } from './components';
 
+// TODO 1.17.30 https://www.youtube.com/watch?v=J22CdUt5OOs&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=5
+
 function App() {
 
 	const [items, setItems] = useState([]);

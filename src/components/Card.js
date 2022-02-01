@@ -7,6 +7,7 @@ import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemove, onClickFavorite, ...props }) {
 
 	const [isAdded, setIsAdded] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(false);
 
 	const onClickPlus = () => {
 		setIsAdded(!isAdded);
@@ -17,13 +18,19 @@ function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemov
 		onRemove(id)
 	}
 
+	const onFavoriteClick = () => {
+		setIsFavorite(!isFavorite);
+		onClickFavorite();
+	}
+
 	return (
 		<div className={classNames("card", { "card--horizontal": horizontal })}>
 			<div
 				className="card__btn card__btn--favorite"
-				onClick={onClickFavorite}
+				onClick={onFavoriteClick}
 			>
-				<IconSvgSelector id='unliked' />
+				{isFavorite ? <IconSvgSelector id='liked' /> : <IconSvgSelector id='unliked' />}
+				
 			</div>
 			<img src={img} alt="" className="card__img" />
 			<div className="card__info">
