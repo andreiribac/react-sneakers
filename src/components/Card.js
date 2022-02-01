@@ -4,13 +4,17 @@ import classNames from 'classnames';
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ img, name, price, horizontal, cart, onClickFunction, onClickFavorite, ...props }) {
+function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemove, onClickFavorite, ...props }) {
 
 	const [isAdded, setIsAdded] = useState(false);
 
 	const onClickPlus = () => {
 		setIsAdded(!isAdded);
-		onClickFunction({name, img, price});
+		onClickFunction({ img, name, price });
+	}
+
+	const onClickRemove = () => {
+		onRemove(id)
 	}
 
 	return (
@@ -31,7 +35,7 @@ function Card({ img, name, price, horizontal, cart, onClickFunction, onClickFavo
 					</div>
 					<div
 						className={classNames("card__btn card__btn--action", { 'active': isAdded })}
-						onClick={onClickPlus}
+						onClick={cart ? onClickRemove : onClickPlus}
 					>
 						{cart
 							? <IconSvgSelector id='btn-remove' />
