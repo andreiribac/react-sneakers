@@ -13,10 +13,13 @@ function Favorites({ items, onAddToFavorites, onAddToCart }) {
 					return (
 						<Card
 							favorited={true}
-							key={item.img}
-							img={item.img}
-							name={item.name}
-							price={item.price}
+							key={item.id}
+							// id={item.id}
+							// img={item.img}
+							// name={item.name}
+							// price={item.price}
+						// Все закоментированные свойства можно заменить на {...item}
+							{...item}
 							onClickFavorite={(item) => { onAddToFavorites(item) }}
 							onClickFunction={(item) => { onAddToCart(item) }}
 						/>

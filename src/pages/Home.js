@@ -18,9 +18,10 @@ function Home({ onChangeSearchInput, searchValue, onClearSearch, items, onAddToF
 					return (
 						<Card
 							key={item.img}
-							img={item.img}
-							name={item.name}
-							price={item.price}
+							// img={item.img}
+							// name={item.name}
+							// price={item.price}
+							{...item}
 							onClickFavorite={(item) => { onAddToFavorites(item) }}
 							onClickFunction={(item) => { onAddToCart(item) }}
 						/>

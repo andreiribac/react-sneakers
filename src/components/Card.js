@@ -5,13 +5,12 @@ import classNames from 'classnames';
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
 function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemove, onClickFavorite, favorited = false, ...props }) {
-
 	const [isAdded, setIsAdded] = useState(false);
 	const [isFavorite, setIsFavorite] = useState(favorited);
 
 	const onClickPlus = () => {
+		onClickFunction({id, img, name, price });
 		setIsAdded(!isAdded);
-		onClickFunction({ img, name, price });
 	}
 
 	const onClickRemove = () => {
@@ -19,8 +18,8 @@ function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemov
 	}
 
 	const onFavoriteClick = () => {
+		onClickFavorite({ id, img, name, price });
 		setIsFavorite(!isFavorite);
-		onClickFavorite({ img, name, price });
 	}
 
 	return (
