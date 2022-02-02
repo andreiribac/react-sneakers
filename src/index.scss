@@ -224,6 +224,8 @@ h4,
 .logo {
 	display: inline-flex;
 	align-items: center;
+	text-decoration: none;
+	color: $color-black;
 	cursor: pointer;
 	&__img {
 		display: block;

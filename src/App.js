@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Routes, Route, Link } from "react-router-dom";
 
 
-import { Card, Header, MainGrid, Drawer } from './components';
+import { Header, Drawer } from './components';
+import { Home, Favorites } from './pages';
 
-// TODO 1.17.30 https://www.youtube.com/watch?v=J22CdUt5OOs&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=5
 
 function App() {
 
 	const [items, setItems] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
+	const [favoritesItems, setFavoritesItems] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 	const [isActiveDrawer, setIsActiveDrawer] = useState(false);
 
@@ -35,6 +37,10 @@ function App() {
 			.then(res => {
 				setCartItems(res.data);
 			});
+		axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites')
+			.then(res => {
+				setFavoritesItems(res.data);
+			});
 	}, []);
 
 	const onAddToCart = (item) => {
@@ -42,12 +48,17 @@ function App() {
 		setCartItems(prev => [...prev, item]);
 	}
 
+	const onAddToFavorites = (item) => {
+		axios.post('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites', item);
+		setFavoritesItems(prev => [...prev, item]);
+	}
+
 	const onRemoveItem = (id) => {
 		axios.delete(`https://61f7e88b39431d0017eafaf6.mockapi.io/cart/${id}`);
 		setCartItems(prev => prev.filter(item => item.id !== id));
 	}
 
-	const onChangesearchInput = (event) => {
+	const onChangeSearchInput = (event) => {
 		setSearchValue(event.target.value);
 	}
 
@@ -66,29 +77,30 @@ function App() {
 			<div className="wrapper">
 				<Header openDrawer={toggleDrawer} />
 				<main>
-					<MainGrid
-						title="все кросовки"
-						search
-						onChange={onChangesearchInput}
-						searchValue={searchValue}
-						onClearSearch={onClearSearch}
-					>
-						{items
-							// filter - реализация показа по поиску он отдает отфильтрованный массив
-							.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
-							.map((item) => {
-								return (
-									<Card
-										key={item.img}
-										img={item.img}
-										name={item.name}
-										price={item.price}
-										onClickFavorite={() => { console.log(`Добавили в избранное`, item) }}
-										onClickFunction={(item) => { onAddToCart(item) }}
-									/>
-								);
-							})}
-					</MainGrid>
+					<Routes>
+						<Route path="/"
+							element={
+								<Home
+									onChangeSearchInput={onChangeSearchInput}
+									searchValue={searchValue}
+									onClearSearch={onClearSearch}
+									items={items}
+									onAddToFavorites={onAddToFavorites}
+									onAddToCart={onAddToCart}
+								/>
+							}
+						/>
+						<Route path="/favorites"
+							element={
+								<Favorites
+									items={favoritesItems}
+									onAddToFavorites={onAddToFavorites}
+									onAddToCart={onAddToCart}
+								/>
+							}
+						/>
+					</Routes>
+					
 				</main>
 			</div>
 		</>
