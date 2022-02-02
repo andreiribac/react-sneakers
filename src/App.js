@@ -20,32 +20,33 @@ function App() {
 	}
 
 	React.useEffect(() => {
-		// Это все заменятся библиотекой axios
-		// fetch('https://61f7e88b39431d0017eafaf6.mockapi.io/items')
-		// 	.then((res) => {
-		// 		return res.json();
-		// 	})
-		// 	.then((json) => {
-		// 		setItems(json);
-		// 	});
+		async function fetchData() { 
+			const cartResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/cart');
+			const favoritesResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites');
+			const itemsResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/items');
 
-		axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/items')
-			.then(res => {
-				setItems(res.data);
-			});
-		axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/cart')
-			.then(res => {
-				setCartItems(res.data);
-			});
-		axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites')
-			.then(res => {
-				setFavoritesItems(res.data);
-			});
+			setCartItems(cartResponse.data);
+			setFavoritesItems(favoritesResponse.data);
+			setItems(itemsResponse.data);
+		}
+
+		fetchData();
 	}, []);
 
+	// TODO 1.22.34 https://www.youtube.com/watch?v=2jLFTiytfgg&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=6
+
 	const onAddToCart = (item) => {
-		axios.post('https://61f7e88b39431d0017eafaf6.mockapi.io/cart', item);
-		setCartItems(prev => [...prev, item]);
+		try {
+			if (cartItems.find(obj => obj.id === item.id)) {
+				axios.delete(`https://61f7e88b39431d0017eafaf6.mockapi.io/cart/${item.id}`);
+				setCartItems(prev => prev.filter(obj => obj.id !== item.id));
+			} else {
+				axios.post('https://61f7e88b39431d0017eafaf6.mockapi.io/cart', item);
+				setCartItems(prev => [...prev, item]);
+			}
+		} catch (error) {
+			
+		}
 	}
 
 	const onAddToFavorites = async (item) => {
@@ -95,6 +96,7 @@ function App() {
 									searchValue={searchValue}
 									onClearSearch={onClearSearch}
 									items={items}
+									cartItems={cartItems}
 									onAddToFavorites={onAddToFavorites}
 									onAddToCart={onAddToCart}
 								/>
