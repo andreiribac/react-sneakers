@@ -2,17 +2,28 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import ContentLoader from "react-content-loader";
 
+import AppContext from '../context';
+
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
-function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemove, onClickFavorite, favorited = false, added = false, loading = false, ...props }) {
-	const [isAdded, setIsAdded] = useState(added);
+function Card({
+	id, img, name,
+	price, horizontal, cart,
+	onClickFunction, onRemove,
+	onClickFavorite,
+	favorited = false,
+	loading = false,
+	...props }) {
+	const { isItemAdded } = React.useContext(AppContext);
+	// const [isAdded, setIsAdded] = useState(added);
 	const [isFavorite, setIsFavorite] = useState(favorited);
 
 	const onClickPlus = () => {
 		onClickFunction({ id, img, name, price });
-		setIsAdded(!isAdded);
+		// setIsAdded(!isAdded);
 	}
+
 
 	const onClickRemove = () => {
 		onRemove(id)
@@ -58,22 +69,22 @@ function Card({ id, img, name, price, horizontal, cart, onClickFunction, onRemov
 								<div className="card__price-value">{price} руб.</div>
 							</div>
 							<div
-								className={classNames("card__btn card__btn--action", { 'active': isAdded })}
+								className={classNames("card__btn card__btn--action", { 'active': isItemAdded(id) })}
 								onClick={cart ? onClickRemove : onClickPlus}
 							>
 								{cart
 									? <IconSvgSelector id='btn-remove' />
-									: isAdded ? <IconSvgSelector id='btn-checked' /> : <IconSvgSelector id='btn-plus' />
+									: isItemAdded(id) ? <IconSvgSelector id='btn-checked' /> : <IconSvgSelector id='btn-plus' />
 								}
 
 							</div>
 						</div>
 					</div>
 				</>
-			
-		}
-			
-			
+
+			}
+
+
 		</div>
 	);
 }

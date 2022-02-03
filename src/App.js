@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 
 import { Header, Drawer } from './components';
 import { Home, Favorites } from './pages';
+
+import AppContext from './context';
+
+// TODO 2.40.29 https://www.youtube.com/watch?v=2jLFTiytfgg&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=8
 
 
 function App() {
@@ -56,7 +60,7 @@ function App() {
 		try {
 			if (favoritesItems.find(obj => obj.id === item.id)) {
 				axios.delete(`https://61f7e88b39431d0017eafaf6.mockapi.io/favorites/${item.id}`);
-				// setFavoritesItems(prev => prev.filter(obj => obj.id !== item.id));
+				setFavoritesItems(prev => prev.filter(obj => obj.id !== item.id));
 			} else {
 				const { data } = await axios.post('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites', item);
 				setFavoritesItems(prev => [...prev, data]);
@@ -80,8 +84,12 @@ function App() {
 		setSearchValue('');
 	}
 
+	const isItemAdded = (id) => {
+		return cartItems.some(obj => obj.id === id)
+	}
+
 	return (
-		<>
+		<AppContext.Provider value={{ items, cartItems, favoritesItems, isItemAdded, onAddToFavorites}}>
 			<Drawer
 				active={isActiveDrawer}
 				closeDrawer={toggleDrawer}
@@ -109,8 +117,8 @@ function App() {
 						<Route path="/favorites"
 							element={
 								<Favorites
-									items={favoritesItems}
-									onAddToFavorites={onAddToFavorites}
+									// items={favoritesItems}
+									// onAddToFavorites={onAddToFavorites}
 									onAddToCart={onAddToCart}
 								/>
 							}
@@ -119,7 +127,7 @@ function App() {
 
 				</main>
 			</div>
-		</>
+		</AppContext.Provider>
 	);
 }
 

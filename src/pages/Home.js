@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MainGrid, Card } from '../components';
+// import AppContext from '../context';
 
 function Home({
-	cartItems,
 	onChangeSearchInput,
 	searchValue,
 	onClearSearch,
@@ -11,6 +11,7 @@ function Home({
 	onAddToCart,
 	isLoading
 }) {
+
 	
 	const renderItems = () => {
 		// filter - реализация показа по поиску он отдает отфильтрованный массив
@@ -21,12 +22,12 @@ function Home({
 					return (
 						<Card
 							loading={isLoading}
-							key={index}
+							key={item ? item.id : index}
 							// img={item.img}
 							// name={item.name}
 							// price={item.price}
 							{...item}
-							added={cartItems.some(obj => obj.id === item.id)}
+							// added={isItemAdded(item && item.id)}
 							onClickFavorite={(item) => { onAddToFavorites(item) }}
 							onClickFunction={(item) => { onAddToCart(item) }}
 						/>

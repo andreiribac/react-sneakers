@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MainGrid, Card } from '../components';
 
-function Favorites({ items, onAddToFavorites, onAddToCart }) {
+import AppContext from '../context';
+
+
+function Favorites({  onAddToCart }) {
+	
+	const { favoritesItems, onAddToFavorites } = useContext(AppContext);
+
 	return (
 		<MainGrid
 			title="мои закладки"
 		>
-			{items
+			{favoritesItems
 				// filter - реализация показа по поиску он отдает отфильтрованный массив
 				// .filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
 				.map((item) => {
@@ -20,7 +26,7 @@ function Favorites({ items, onAddToFavorites, onAddToCart }) {
 							// price={item.price}
 						// Все закоментированные свойства можно заменить на {...item}
 							{...item}
-							onClickFavorite={(item) => { onAddToFavorites(item) }}
+							onClickFavorite={onAddToFavorites}
 							onClickFunction={(item) => { onAddToCart(item) }}
 						/>
 					);
