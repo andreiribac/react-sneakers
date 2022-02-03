@@ -1,23 +1,27 @@
 import React from 'react';
 import { MainGrid, Card } from '../components';
 
-function Home({ cartItems, onChangeSearchInput, searchValue, onClearSearch, items, onAddToFavorites, onAddToCart }) {
+function Home({
+	cartItems,
+	onChangeSearchInput,
+	searchValue,
+	onClearSearch,
+	items,
+	onAddToFavorites,
+	onAddToCart,
+	isLoading
+}) {
 	
-	return (
-		<MainGrid
-			title="все кросовки"
-			search
-			onChange={onChangeSearchInput}
-			searchValue={searchValue}
-			onClearSearch={onClearSearch}
-		>
-			{items
-				// filter - реализация показа по поиску он отдает отфильтрованный массив
-				.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
-				.map((item) => {
+	const renderItems = () => {
+		// filter - реализация показа по поиску он отдает отфильтрованный массив
+		const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
+		return (
+			(isLoading ? [...Array(10)] : filteredItems)
+				.map((item, index) => {
 					return (
 						<Card
-							key={item.img}
+							loading={isLoading}
+							key={index}
 							// img={item.img}
 							// name={item.name}
 							// price={item.price}
@@ -27,7 +31,19 @@ function Home({ cartItems, onChangeSearchInput, searchValue, onClearSearch, item
 							onClickFunction={(item) => { onAddToCart(item) }}
 						/>
 					);
-				})}
+				})
+		);
+	}
+
+	return (
+		<MainGrid
+			title="все кросовки"
+			search
+			onChange={onChangeSearchInput}
+			searchValue={searchValue}
+			onClearSearch={onClearSearch}
+		>
+			{renderItems()}
 		</MainGrid>
 	);
 }

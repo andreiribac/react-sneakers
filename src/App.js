@@ -14,6 +14,7 @@ function App() {
 	const [favoritesItems, setFavoritesItems] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 	const [isActiveDrawer, setIsActiveDrawer] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const toggleDrawer = () => {
 		setIsActiveDrawer(!isActiveDrawer);
@@ -21,9 +22,12 @@ function App() {
 
 	React.useEffect(() => {
 		async function fetchData() { 
+			setIsLoading(true);
 			const cartResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/cart');
 			const favoritesResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/favorites');
 			const itemsResponse = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/items');
+
+			setIsLoading(false);
 
 			setCartItems(cartResponse.data);
 			setFavoritesItems(favoritesResponse.data);
@@ -33,7 +37,6 @@ function App() {
 		fetchData();
 	}, []);
 
-	// TODO 1.22.34 https://www.youtube.com/watch?v=2jLFTiytfgg&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=6
 
 	const onAddToCart = (item) => {
 		try {
@@ -99,6 +102,7 @@ function App() {
 									cartItems={cartItems}
 									onAddToFavorites={onAddToFavorites}
 									onAddToCart={onAddToCart}
+									isLoading={isLoading}
 								/>
 							}
 						/>
