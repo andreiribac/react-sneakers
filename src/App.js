@@ -8,7 +8,6 @@ import { Home, Favorites } from './pages';
 
 import AppContext from './context';
 
-// TODO 2.40.29 https://www.youtube.com/watch?v=2jLFTiytfgg&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=8
 
 
 function App() {
@@ -89,7 +88,11 @@ function App() {
 	}
 
 	return (
-		<AppContext.Provider value={{ items, cartItems, favoritesItems, isItemAdded, onAddToFavorites}}>
+		<AppContext.Provider value={{
+			items, cartItems, favoritesItems,
+			isItemAdded, onAddToFavorites, toggleDrawer,
+			setCartItems
+		}}>
 			<Drawer
 				active={isActiveDrawer}
 				closeDrawer={toggleDrawer}
