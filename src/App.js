@@ -87,6 +87,9 @@ function App() {
 		return cartItems.some(obj => obj.id === id)
 	}
 
+// TODO 18.03 https://www.youtube.com/watch?v=C_3ZT7j1_jc&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=7
+	// * https://github.com/Archakov06/react-sneakers
+
 	return (
 		<AppContext.Provider value={{
 			items, cartItems, favoritesItems,
