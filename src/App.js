@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 
 import { Header, Drawer } from './components';
-import { Home, Favorites } from './pages';
+import { Home, Favorites, Orders } from './pages';
 
 import AppContext from './context';
 
@@ -87,8 +87,6 @@ function App() {
 		return cartItems.some(obj => obj.id === id)
 	}
 
-// TODO 18.03 https://www.youtube.com/watch?v=C_3ZT7j1_jc&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=7
-	// * https://github.com/Archakov06/react-sneakers
 
 	return (
 		<AppContext.Provider value={{
@@ -126,6 +124,13 @@ function App() {
 									// items={favoritesItems}
 									// onAddToFavorites={onAddToFavorites}
 									onAddToCart={onAddToCart}
+								/>
+							}
+						/>
+						<Route path="/orders"
+							element={
+								<Orders
+									
 								/>
 							}
 						/>

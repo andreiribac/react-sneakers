@@ -347,6 +347,19 @@ h4,
 	}
 }
 
+.full-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 25px 0;
+	width: 100%;
+	min-height: calc(100vh - 183px);
+	&__container {
+		display: block;
+		max-width: 290px;
+	}
+}
+
 .card {
 	position: relative;
 	display: inline-block;

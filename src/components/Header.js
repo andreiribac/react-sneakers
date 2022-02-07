@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 import Logo from '../assets/img/logo.png';
+import { useCard } from '../hooks/useCart';
 
 
-function Header({openDrawer, ...props}) {
+function Header({ openDrawer, ...props }) {
+	
+	const { totalPrice } = useCard();
+
 	return (
 		<header className='header'>
 			<div className="header__row">
@@ -21,7 +25,7 @@ function Header({openDrawer, ...props}) {
 						<li className="actions__item">
 							<div className="actions__btn" onClick={openDrawer}>
 								<IconSvgSelector id='cart' className="actions__icon" />
-								<span className="actions__info">1205 руб.</span>
+								<span className="actions__info">{totalPrice !== 0 && `${totalPrice} руб.`} </span>
 							</div>
 						</li>
 						<li className="actions__item">
@@ -31,10 +35,10 @@ function Header({openDrawer, ...props}) {
 							</Link>
 						</li>
 						<li className="actions__item">
-							<div className="actions__btn">
+							<Link to="/orders" className="actions__btn">
 								<IconSvgSelector id='user' className="actions__icon" />
 								<span className="actions__info"></span>
-							</div>
+							</Link>
 						</li>
 					</ul>
 				</nav>

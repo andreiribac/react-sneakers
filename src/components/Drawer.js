@@ -7,6 +7,9 @@ import axios from 'axios';
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 import { Card, Button, InfoBox } from '.';
 import AppContext from '../context';
+import {useCard} from '../hooks/useCart';
+
+
 
 import emptyCart from '../assets/img/empty-cart.jpg';
 import completeOrder from '../assets/img/complete-order.jpg';
@@ -15,11 +18,14 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function Drawer({ active, onRemove, items = [], ...props }) {
 
-	const { toggleDrawer, cartItems, setCartItems } = React.useContext(AppContext);
+	const { toggleDrawer } = React.useContext(AppContext);
+	
+	const { cartItems, setCartItems, totalPrice } = useCard();
 	
 	const [orderID, setOrderID] = useState(null);
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	// const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
 	
 	const onClickOrder = async () => {
 		try {
@@ -71,12 +77,12 @@ function Drawer({ active, onRemove, items = [], ...props }) {
 							<div className="drawer__total-info">
 								<span>Итого:</span>
 								<div className="drawer__total-line"></div>
-								<b>21 498 руб руб</b>
+								<b>{totalPrice} руб</b>
 							</div>
 							<div className="drawer__total-info">
 								<span>Налог 5%:</span>
 								<div className="drawer__total-line"></div>
-								<b>1074 руб</b>
+								<b>{Math.floor(totalPrice * 0.05)} руб</b>
 							</div>
 							<Button disabled={isLoading} onClick={onClickOrder} large>
 								Оформить заказ
