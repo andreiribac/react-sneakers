@@ -92,7 +92,7 @@ function App() {
 		<AppContext.Provider value={{
 			items, cartItems, favoritesItems,
 			isItemAdded, onAddToFavorites, toggleDrawer,
-			setCartItems
+			setCartItems, onAddToCart
 		}}>
 			<Drawer
 				active={isActiveDrawer}

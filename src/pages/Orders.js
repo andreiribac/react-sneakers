@@ -1,44 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import { InfoBox, MainGrid, FullPage, Card } from '../components';
 
 import emptyCart from '../assets/img/empty-cart.jpg';
+import AppContext from '../context';
 
 function Orders({ }) {
 
+	const { onAddToFavorites, onAddToCart } = useContext(AppContext);
 	const [orders, setOrders] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		(async () => {
-			const { data } = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/orders');
-			console.log('data: ', data);
-			setOrders(data);
+			try {
+				const { data } = await axios.get('https://61f7e88b39431d0017eafaf6.mockapi.io/orders');
+				setOrders(data);
+				setIsLoading(false);
+
+				// Из урока
+				// console.log(data.map((obj)=>obj.items).flat());
+				// setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
+				// setIsLoading(false);
+			} catch (error) {
+				alert('Ошибка при запросе заказа')
+				console.error('error: ', error);
+			}
+
 		})();
 
 	}, []);
 
-// TODO 54.41 https://www.youtube.com/watch?v=C_3ZT7j1_jc&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=8
 	return (
 		<>
 			{orders
 				? (
-					<MainGrid
-						title="мои заказы"
-					>
-						{orders
-							.map((item) => {
-								return (
-									<Card
-										key={item.id}
-										{...item}
-									// onClickFavorite={onAddToFavorites}
-									// onClickFunction={(item) => { onAddToCart(item) }}
-									/>
-								);
-							})
-						}
-					</MainGrid>
+					<>
+						{/* Мой способ выводить заказы как отдельный заказ в котором есть перечень товаров */}
+						{orders.map((obj) => {
+							return (
+								<MainGrid
+									title={`Ваш заказа №${obj.id}`}
+									key={obj.id}
+								>
+									{obj.items
+										.map((item) => {
+											return (
+												<Card
+													key={item.id}
+													{...item}
+													onClickFavorite={onAddToFavorites}
+													onClickFunction={(item) => { onAddToCart(item) }}
+												/>
+											);
+										})
+									}
+								</MainGrid>
+							)
+						})}
+					</>
+
+					
+					// <>
+					// 	{/* Способо из урока - выведение товаров всей кучей, без разделения товаров */}
+					// 	<MainGrid
+					// 		title={`Ваши заказы`}
+					// 	>
+					// 		{(isLoading ? [...Array(10)] : orders)
+					// 			.map((item, index) => {
+					// 				return (
+					// 					<Card
+					// 						key={index}
+					// 						{...item}
+					// 						loading={isLoading}
+					// 						onClickFavorite={onAddToFavorites}
+					// 						onClickFunction={(item) => { onAddToCart(item) }}
+					// 					/>
+					// 				);
+					// 			})
+					// 		}
+					// 	</MainGrid>
+					// </>
 				) : (
 					<FullPage>
 						<InfoBox
