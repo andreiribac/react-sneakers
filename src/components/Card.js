@@ -8,7 +8,7 @@ import AppContext from '../context';
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 
 function Card({
-	id, img, name,
+	id, parentId, img, name,
 	price, horizontal, cart,
 	onClickFunction, onRemove,
 	onClickFavorite,
@@ -18,9 +18,10 @@ function Card({
 	const { isItemAdded } = React.useContext(AppContext);
 	// const [isAdded, setIsAdded] = useState(added);
 	const [isFavorite, setIsFavorite] = useState(favorited);
+	const itemObj = { id, parentId: id, img, name, price }
 
 	const onClickPlus = () => {
-		onClickFunction({ id, img, name, price });
+		onClickFunction(itemObj);
 		// setIsAdded(!isAdded);
 	}
 
@@ -30,7 +31,7 @@ function Card({
 	}
 
 	const onFavoriteClick = () => {
-		onClickFavorite({ id, img, name, price });
+		onClickFavorite(itemObj);
 		setIsFavorite(!isFavorite);
 	}
 
