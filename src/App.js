@@ -50,7 +50,6 @@ function App() {
 		fetchData();
 	}, []);
 
-	// TODO 2.13.31 https://www.youtube.com/watch?v=C_3ZT7j1_jc&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=9
 
 	const onAddToCart = async (item) => {
 		try {
