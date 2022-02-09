@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 import Logo from '../assets/img/logo.png';
-import { useCard } from '../hooks/useCart';
+import { useCart } from '../hooks/useCart';
 
 
 function Header({ openDrawer, ...props }) {
-	
-	const { totalPrice } = useCard();
+
+	const { totalPrice } = useCart();
 
 	return (
 		<header className='header'>
@@ -44,7 +44,7 @@ function Header({ openDrawer, ...props }) {
 				</nav>
 			</div>
 		</header>
-  );
+	);
 }
 
 export default Header;

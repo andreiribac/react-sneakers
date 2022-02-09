@@ -7,7 +7,7 @@ import axios from 'axios';
 import { IconSvgSelector } from '../assets/icons/IconsSvgSelector';
 import { Card, Button, InfoBox } from '.';
 import AppContext from '../context';
-import {useCard} from '../hooks/useCart';
+import { useCart } from '../hooks/useCart';
 
 
 
@@ -19,14 +19,14 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 function Drawer({ active, onRemove, items = [], ...props }) {
 
 	const { toggleDrawer } = React.useContext(AppContext);
-	
-	const { cartItems, setCartItems, totalPrice } = useCard();
-	
+
+	const { cartItems, setCartItems, totalPrice } = useCart();
+
 	const [orderID, setOrderID] = useState(null);
 	const [isOrderComplete, setIsOrderComplete] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	// const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
-	
+
 	const onClickOrder = async () => {
 		try {
 			setIsLoading(true);
@@ -91,10 +91,10 @@ function Drawer({ active, onRemove, items = [], ...props }) {
 					</div>
 					: <InfoBox
 						img={isOrderComplete ? completeOrder : emptyCart}
-						title={isOrderComplete? 'Заказ оформлен': 'Корзина пустая'}
-						description={isOrderComplete ? `Ваш заказ #${orderID} скоро будет передан курьерской доставке`:'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'}
+						title={isOrderComplete ? 'Заказ оформлен' : 'Корзина пустая'}
+						description={isOrderComplete ? `Ваш заказ #${orderID} скоро будет передан курьерской доставке` : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'}
 					/>
-					}
+				}
 
 			</div>
 		</div>
