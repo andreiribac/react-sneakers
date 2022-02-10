@@ -39,6 +39,7 @@ function Header({ openDrawer, ...props }) {
 								<IconSvgSelector id='user' className="actions__icon" />
 								<span className="actions__info"></span>
 							</Link>
+							
 						</li>
 					</ul>
 				</nav>
