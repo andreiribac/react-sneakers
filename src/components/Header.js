@@ -13,7 +13,7 @@ function Header({ openDrawer, ...props }) {
 	return (
 		<header className='header'>
 			<div className="header__row">
-				<Link to="/" className="logo">
+				<Link to="/react-sneakers/" className="logo">
 					<img src={Logo} alt="logo" className="logo__img" />
 					<div className="logo__info-box">
 						<div className="h3">REACT SNEAKERS</div>
@@ -29,17 +29,17 @@ function Header({ openDrawer, ...props }) {
 							</div>
 						</li>
 						<li className="actions__item">
-							<Link to="/favorites" className="actions__btn">
+							<Link to="/react-sneakers/favorites" className="actions__btn">
 								<IconSvgSelector id='heart' className="actions__icon" />
 								<span className="actions__info"></span>
 							</Link>
 						</li>
 						<li className="actions__item">
-							<Link to="/orders" className="actions__btn">
+							<Link to="/react-sneakers/orders" className="actions__btn">
 								<IconSvgSelector id='user' className="actions__icon" />
 								<span className="actions__info"></span>
 							</Link>
-							
+
 						</li>
 					</ul>
 				</nav>
